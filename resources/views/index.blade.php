@@ -25,13 +25,16 @@
                         <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ asset($post->featured) }}"
                             alt="{{ $post->tittle }}">
                         <div class="media-body">
-                            <h3 class="title mb-1"><a href="#">{{ $post->tittle }}</a>
+                            <h3 class="title mb-1"><a
+                                    href="{{ route('post.single', ['slug' => $post->slug]) }}">{{ $post->tittle }}</a>
                             </h3>
-                            <div class="meta mb-1"><span class="date">{{ $post->created_at->diffForHumans() }}</span>
+                            <div class="meta mb-1"><span class="date">Published
+                                    {{ $post->created_at->diffForHumans() }}</span>
                                 <span class="category"><a href="#">{{ $post->category->name }}</a></span>
                             </div>
                             <div class="intro">{!! substr($post->content, 0, 200) !!}</div>
-                            <a class="more-link" href="#">Read more &rarr;</a>
+                            <a class="more-link" href="{{ route('post.single', ['slug' => $post->slug]) }}">Read more
+                                &rarr;</a>
                         </div>
                         <!--//media-body-->
                     </div>
@@ -42,10 +45,7 @@
 
 
             <nav class="blog-nav nav nav-justified my-5">
-                <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i
-                        class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-                <a class="nav-link-next nav-item nav-link rounded" href="#">Next<i
-                        class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+                @include('includes.pagination',['paginator' => $posts->appends(Request::except('page'))])
             </nav>
 
         </div>

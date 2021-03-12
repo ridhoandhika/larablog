@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'FrontendController@index')->name('index');
+Route::get('/{slug}','FrontendController@singlePost')->name('post.single');
+
 
 Route::group(['prefix'=> 'admin','middleware' =>'auth'], function(){
 
